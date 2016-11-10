@@ -131,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
         loader.init(conf);//这个方法同常情况下创建一次即可
         loader.displayImage("http://game.gtimg.cn/images/yxzj/cp/a20160422lbpc/zy-yxbz.jpg",
-                iv,optss,animateFirstListener);//增加动画加载的效果
+                iv,optss,animateFirstListener);//增加动画加载的效果 显示
+
 
     }
     @OnClick(R.id.but_downonly) void downonly() {//仅仅是下载图片的
