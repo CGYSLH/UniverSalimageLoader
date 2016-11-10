@@ -21,18 +21,23 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.display.CircleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
     @BindView(R.id.but_normal)
     Button butNormal;
     @BindView(R.id.iv)
@@ -126,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         loader.init(conf);//这个方法同常情况下创建一次即可
         loader.displayImage("http://game.gtimg.cn/images/yxzj/cp/a20160422lbpc/zy-yxbz.jpg",
-                iv,optss);
+                iv,optss,animateFirstListener);//增加动画加载的效果
 
     }
     @OnClick(R.id.but_downonly) void downonly() {//仅仅是下载图片的
@@ -175,5 +180,22 @@ public class MainActivity extends AppCompatActivity {
         loader.clearMemoryCache();//清除内存的缓存
         loader.getMemoryCache();//得到内存的缓存
         loader.getDiskCache();//得到本地的缓存
+    }
+
+    private static class AnimateFirstDisplayListener extends SimpleImageLoadingListener {
+
+        static final List<String> displayedImages = Collections.synchronizedList(new LinkedList<String>());
+
+        @Override
+        public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+            if (loadedImage != null) {
+                ImageView imageView = (ImageView) view;
+                boolean firstDisplay = !displayedImages.contains(imageUri);
+                if (firstDisplay) {
+                    FadeInBitmapDisplayer.animate(imageView, 500);//淡入点阵显示器 增加淡入的效果
+                    displayedImages.add(imageUri);
+                }
+            }
+        }
     }
 }
