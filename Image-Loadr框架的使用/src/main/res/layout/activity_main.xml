@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mi.universalimageloader.MainActivity">
+
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/but_normal"
+       android:text="基础的图片下载"/>
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/but_normal"
+       android:id="@+id/but_display"
+       android:text="设置图片显示的相关的配置"/>
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/but_display"
+        android:id="@+id/but_conf"
+       android:text="ImageloaderConfiguration的相关的配置"/>
+   <Button
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_below="@id/but_conf"
+       android:id="@+id/but_downonly"
+       android:text="纯粹下载图片的加载图片"/>
+
+   <ImageView
+       android:layout_alignParentBottom="true"
+       android:layout_width="500dp"
+       android:layout_height="360dp"
+       android:id="@+id/iv"/>
+</RelativeLayout>
